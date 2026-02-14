@@ -16,6 +16,9 @@ export const ExerciseSchema = z.object({
 
 export const formSchema = z.object(
   {
-    title:z.string().min(1,{message:'title is required'})
+    title:z.string().min(1,{message:'title is required'}),
+    description:z.string().min(1,{message:'description is required'}),
+    bannerImage:z.string().min(1,{message:'banner image is required'}),
+    isPublished:z.boolean().default(false),
   }
 )
