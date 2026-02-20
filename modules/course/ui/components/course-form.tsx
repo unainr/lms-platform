@@ -35,10 +35,12 @@ import { createCourse } from "../../server/actions"
 import { Spinner } from "@/components/ui/spinner"
 import { Progress } from "@/components/ui/progress"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useRouter } from "next/navigation"
 
 
 export const CourseForm = () => {
     const [uploading, setUploading] = React.useState(false);
+    const router = useRouter()
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -59,6 +61,7 @@ export const CourseForm = () => {
             } else {
                 toast.success("Course created!");
                 // Optionally redirect or reset
+                router.push(`/course/${res.data?.id}`)
                 form.reset();
             }
         } catch (error) {
@@ -192,7 +195,7 @@ export const CourseForm = () => {
                         Reset
                     </Button>
                     <Button type="submit" form="course-form" disabled={uploading}>
-                        Create Course
+                      {uploading ? (<><Spinner /> Creating Course</>) : "Create Course"}
                     </Button>
                 </div>
             </CardFooter>
