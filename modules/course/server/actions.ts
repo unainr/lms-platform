@@ -24,7 +24,7 @@ export const createCourse = async (values: z.infer<typeof formSchema>) => {
   const { title, description, bannerImage, isPublished } = validatedFields.data;
 
   try {
-    const data = await db.insert(courses).values({
+    const [data] = await db.insert(courses).values({
         title,
         description,
         bannerImage,
@@ -32,7 +32,7 @@ export const createCourse = async (values: z.infer<typeof formSchema>) => {
         createdBy: userId,
     }).returning();
     
-    return { success: "Course created!", data: data[0] };
+    return { success: "Course created!", data: data };
   } catch (error) {
     console.error(error);
     return { error: "Something went wrong" };

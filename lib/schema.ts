@@ -22,3 +22,11 @@ export const formSchema = z.object(
     isPublished:z.boolean().default(false),
   }
 )
+
+export const chapterSchema = z.object({
+    title:z.string().min(1,{message:'title is required'}),
+    content:z.string().min(1,{message:'content is required'}),
+})
+
+export type CreateChapterInput  = z.infer<typeof chapterSchema>;
+
